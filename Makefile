@@ -4,7 +4,7 @@ BUILDDIR = build
 DISTDIR = dist
 
 # Gah
-SUBBUILDDIR = $(shell python -c 'import distutils.util, sys; print "lib.%s-%s" % (distutils.util.get_platform(), sys.version[0:3])')
+SUBBUILDDIR = $(shell python -c 'import distutils.util, sys; print("lib.%s-%s" % (distutils.util.get_platform(), sys.version[0:3]))')
 BUILDDIR := $(BUILDDIR)/$(SUBBUILDDIR)
 
 COVERAGE = $(or $(shell which coverage), $(shell which python-coverage), \

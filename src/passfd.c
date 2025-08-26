@@ -106,12 +106,26 @@ static PyMethodDef methods[] = {
     {NULL, NULL, 0, NULL}
 };
 
+#if PY_MAJOR_VERSION >= 3
+static struct PyModuleDef passfd_module = {
+    PyModuleDef_HEAD_INIT,
+    "_passfd",
+    "Functions to pass file descriptors across UNIX domain sockets",
+    -1,
+    methods
+};
+
+PyMODINIT_FUNC PyInit__passfd(void) {
+    return PyModule_Create(&passfd_module);
+}
+#else
 PyMODINIT_FUNC init_passfd(void) {
     PyObject *m;
     m = Py_InitModule("_passfd", methods);
     if (m == NULL)
         return;
 }
+#endif /* PY_MAJOR_VERSION >= 3 */
 
 /* Size of the cmsg including one file descriptor */
 #define CMSG_SIZE CMSG_SPACE(sizeof(int))
